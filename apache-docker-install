@@ -1,0 +1,17 @@
+#!/bin/bash
+# This script is written by Simon Legah
+# This script will install apache and Docker CE on CentOS 8/ RHEL 8
+# intall and apache 
+yum -y update
+yum -y install httpd
+systemctl start httpd
+systemctl enable httpd
+echo "Hello World, Only Jesus CAN SAVE from $(hostname -f)" > /var/www/html/index.html
+# install and start docker-ce
+# 1. Enable Docker CE Repository
+yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+yum -y config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+# 2. install the latest version of docker
+yum -y install docker-ce --nobest -y
+# Start Docker Daemon
+systemctl enable --now docker
